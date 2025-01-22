@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 
 
 use Illuminate\Http\Request;
@@ -25,16 +25,17 @@ class FrontentController extends Controller
     }
     public function controlPanel()
     {
-        return view("controlPanel");
+        return view('controlPanel');
+        // return redirect()->route('controlPanel');
     }
     public function studentstable()
 
     {
-        $students = Student::all();
+        $users = User::all();
         // $students = Student::find(12);
         // $students = Student::where('studentId',8)->get();
         // return $students;
-        return view("studentstable", compact('students'));
+        return view("studentstable", compact('users'));
     }
     public function addStudents()
     {
@@ -43,6 +44,15 @@ class FrontentController extends Controller
     }
     public function saveStudent(Request $request)
     {
+        request()->validate([
+            'name' => 'required|min:6|max:10',
+            'cname' => 'required|min:8|max:11',
+            'gender' => 'required',
+            'address' => 'required',
+            'email' => 'required|email|unique:students,email',
+            'dob' => 'required',
+        ]);
+
         $name = $request->name;
         $course_name = $request->cname;
         $gender = $request->gender;
@@ -69,7 +79,7 @@ class FrontentController extends Controller
 
         // $student->save();
 
-        $student = new Student;
+        $student = new User;
 
         $student->name = $name;
         $student->course_name = $course_name;
@@ -86,7 +96,7 @@ class FrontentController extends Controller
     public function editStudent($i)
     {
         $studentId = decrypt($i);
-        $student = Student::find($studentId);
+        $student = User::find($studentId);
         return view('editStudent', compact('student'));
         // return $student->date_of_birth;
         // return view("editStudent");
@@ -96,21 +106,21 @@ class FrontentController extends Controller
         // return $request->except('_token');
 
 
-    
-        $studentId = $request->studentId;
-        $student = Student::find($studentId);
 
-        return $request->all();
+        $studentId = decrypt($request->studentId);
+        $student = User::find($studentId);
 
-        // $student = Student::find($studentId)->update([
-        //     'name' => $request->name,
-        //     'course_name' => $request->cname,
-        //     'gender' => $request->gender,
-        //     'address' => $request->address,
-        //     'email' => $request->email,
-        //     'date_of_birth' => $request->dob,
-        // ]);
-        // return "Updated";
+        // return $request->all();
+
+        $student = User::find($studentId)->update([
+            'name' => $request->name,
+            'course_name' => $request->cname,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+        ]);
+        return redirect()->route('studentstable')->with('message' ,'Student Get Updated');
     }
     public function deleteStudent()
     {
@@ -124,12 +134,28 @@ class FrontentController extends Controller
     {
         return view("contact");
     }
-    public function logIn()
-    {
-        return view("logIn");
-    }
-    public function signIn()
-    {
-        return view("signIn");
-    }
+   
+    public function login()
+  {
+    // session()->forget('userId');
+    return view('login');
+  }
+  public function register()
+  {
+   
+    return view('register');
+  }
+  public function dologin()
+  {
+    // if(auth()->attempt([
+    //     'email' => request('email'),
+    //     'password' => request('password')
+    //     ]))
+    // {
+    //   return 'login successfull';
+    // }
+    // else{
+    //   return 'login failed';
+    // }
+}
 }

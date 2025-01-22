@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('/About-us',[FrontentController::class,'about'])->name('about');
     Route::get('/Course',[FrontentController::class,'course'])->name('course');
     Route::get('/contact-us',[FrontentController::class,'contact'])->name('contact');
-    Route::get('/logIn',[FrontentController::class,'logIn'])->name('logIn');
-    Route::get('/signIn',[FrontentController::class,'signIn'])->name('signIn');
-    Route::get('/signIn',[FrontentController::class,'signIn'])->name('signIn');
+    Route::get('/login',[FrontentController::class,'login'])->name('login');
+    Route::get('/register',[FrontentController::class,'register'])->name('register');
+    Route::get('/dologin',[FrontentController::class,'dologin'])->name('dologin');
+
+
 
 Route::prefix('user')->group(function()
 
@@ -35,6 +37,7 @@ Route::prefix('user')->group(function()
     Route::post('update-student',[FrontentController::class,'updateStudent'])->name('updateStudent');
     Route::get('delete-student',[FrontentController::class,'deleteStudent'])->name('deleteStudent');
     Route::get('view-student',[FrontentController::class,'viewStudent'])->name('viewStudent');
+   
 
 
 

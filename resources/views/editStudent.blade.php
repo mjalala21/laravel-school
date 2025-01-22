@@ -6,21 +6,21 @@
         </h1>
 
     </div>
-    ---
-    <div class="col-md-6">
-        <div id="profile-container">
-            <image id="profileImage" src="http://lorempixel.com/100/100" />
-        </div>
-        <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture>
-    </div>
-    ----
+
+    <div class="col-md-12">
+
+        <a href=""> <img src="{{asset('images/profile.jpg')}}" 
+          style="height:150x;width:150px" > </a>
+      
+      </div>
+
 
     <div>
         <div class="container col-md-6">
 
             <form action="{{route('updateStudent')}}" method="POST">
                 @csrf
-                <input type="hidden" name="studentId" value="{{$student->studentId}}">
+                <input type="hidden" name="studentId" value="{{encrypt($student->studentId)}}">
                 <div class="form-group">
                     <label><b>Name:</b></label>
                     <br>
@@ -40,13 +40,13 @@
                     <br>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender"
-                            @if ($student->gender == 'male') checked @endif value="Male">
+                            @if ($student->gender == 'male') checked @endif value="male">
                         Male
                         <p></p>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender"
-                            @if ($student->gender == 'female') checked @endif value=:Female>
+                            @if ($student->gender == 'female') checked @endif value="female">
                         Female
 
                     </div>

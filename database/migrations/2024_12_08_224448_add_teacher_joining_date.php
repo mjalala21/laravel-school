@@ -11,22 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        schema::table('students',function(Blueprint $table)
-        {
-            $table->string('email')->after('address')->nullable;
-        }
-    );
+        Schema::table('users', function (Blueprint $table) {
+            $table->date('teacher_joining_date')->after('teacher_date_of_birth');
+        
     }
-
+);
+    }
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        schema::table('students',function(Blueprint $table)
-        {
-            $table->dropColumn('email');
-        }
-    );
+        Schema::table('users', function (Blueprint $table) {
+        $$table->dropColumn('teacher_joining_date');
+    }
+);
     }
 };

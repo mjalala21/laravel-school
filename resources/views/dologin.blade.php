@@ -6,7 +6,7 @@
 
     
     <div class="bg-img pt-5">
-    <form class="form-horizontal container" >
+    <form class="form-horizontal container" action="{{route('')}}" >
       <div class="form-group">
         <label class="control-label col-sm-2" for="uname">Username:</label>
         <div class="col-sm-10">
@@ -31,9 +31,7 @@
           <button type="Login" class="btn">Submit</button>
         </div>
       </div>
-      <div>
-        If you are not registered yet?<a href="{{route('register')}}" style="color:blue">Register Now.</a>
-    </div> 
+    
     </form>
     
     @endsection

@@ -2,7 +2,7 @@
 @extends('layout.master')
 @section('content')
 <div class="col-md-12">
-<h1>
+<h1 class="heading-s">
     List of Students
 </h1>
 
@@ -55,5 +55,7 @@
           @endforeach
         </tbody>
       </table>
-
+{{ $students->links() }}
+</div>
+</div>
 @endsection
